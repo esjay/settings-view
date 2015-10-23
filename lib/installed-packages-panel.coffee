@@ -21,6 +21,7 @@ class InstalledPackagesPanel extends ScrollView
           @div class: 'section-heading icon icon-package', =>
             @text 'Installed Packages'
             @span outlet: 'totalPackages', class: 'section-heading-count badge badge-flexible', '…'
+            @button outlet: 'installedButton', class: 'btn btn-primary icon icon-plus section-heading-action selected', 'Install a Package'
           @div class: 'editor-container', =>
             @subview 'filterEditor', new TextEditorView(mini: true, placeholderText: 'Filter packages by name')
 
@@ -57,6 +58,9 @@ class InstalledPackagesPanel extends ScrollView
 
   initialize: (@packageManager) ->
     super
+    @installedButton.on 'click', =>
+      atom.workspace.open("atom://config/install")
+
     @items =
       dev: new List('name')
       core: new List('name')
